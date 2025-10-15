@@ -1,4 +1,4 @@
-import { Realtime, InferRealtimeEvents } from "@upstash/realtime";
+import { Realtime, InferRealtimeEvents } from "@/app/src/server";
 import { redis } from "./redis";
 import { z } from "zod";
 

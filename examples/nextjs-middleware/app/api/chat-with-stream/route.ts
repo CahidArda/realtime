@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import { realtime, RealtimeEvents } from "@/app/realtime";
-import { toStreamResponse } from "@upstash/realtime"
+import { toStreamResponse } from "@/app/src/server"
 
 export const dynamic = "force-dynamic"
 export const maxDuration = 60
@@ -24,7 +24,7 @@ export const POST = async (request: NextRequest) => {
       sseStream: {
         event: {
           transform: (event) => {
-            return typeof event.data === "string" ? event.data : JSON.stringify(event.data)
+            return event.data
           }
         }
       }

@@ -1,5 +1,5 @@
 import { realtime, RealtimeEvents } from "@/app/realtime"
-import { toStreamResponse } from "@upstash/realtime"
+import { toStreamResponse } from "@/app/src/server"
 
 export const GET = () => toStreamResponse<RealtimeEvents>(
   realtime,
@@ -9,8 +9,7 @@ export const GET = () => toStreamResponse<RealtimeEvents>(
         event: {
           resume: true,
           transform: (event) => {
-            console.log(event);
-            return event
+            return typeof event === "string" ? event : JSON.stringify(event)
           }
         }
       }
