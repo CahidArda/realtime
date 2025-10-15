@@ -4,6 +4,7 @@ import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport, lastAssistantMessageIsCompleteWithApprovalResponses } from 'ai';
 import { useState } from 'react';
 import { GreetingWithApprovalAgentUIMessage } from './api/chat/route';
+import { AI_SDK_HEADER } from './constants';
 
 export default function Chat() {
   const [input, setInput] = useState('');
@@ -12,9 +13,15 @@ export default function Chat() {
     {
       sendAutomaticallyWhen: lastAssistantMessageIsCompleteWithApprovalResponses,
       transport: new DefaultChatTransport({
-        api: "/api/chat-with-stream",
+        api: "/api/chat-with-handle",
         fetch: async (url, options) => {
-          return fetch(url, options);
+          return fetch(url, {
+            ...options,
+            headers: {
+              ...options?.headers,
+              [AI_SDK_HEADER]: 'true',
+            },
+          });
         },
       })
     }

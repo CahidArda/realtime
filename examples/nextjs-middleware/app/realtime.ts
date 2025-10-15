@@ -6,9 +6,6 @@ const schema = {
   sseStream: z.object({
     event: z.string(),
   }),
-  waitForEvent: z.object({
-    event: z.string(),
-  }),
 };
 
 export const realtime = new Realtime({ schema, redis });
